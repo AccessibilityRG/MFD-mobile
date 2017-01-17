@@ -7,6 +7,7 @@
   Geographical Information Science**.
 
 Copyright (C) 2017.  Digital Geography Group / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
+
 Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 #### Check the latest version!
@@ -39,10 +40,12 @@ Python 3 with following packages and their dependencies: pandas, geopandas.
 This script is planned to work with data that is described in the main article, see Järv et al. (2017). In short, the script requires three datasets:
   
   1) a disaggregated physical surface layer, 
+  
   2) time-dependent human activity data,
+  
   3) mobile phone data (CDR), or similar. 
   
-See more information about the datasets from [here]()
+See more information about the datasets from [here](docs/Data-specs.MD)
 
 ## Source Codes
 
