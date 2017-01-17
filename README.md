@@ -14,11 +14,11 @@ Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 This repository is the released version (1.0) that original one belonging to the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD_Mobile).
 
-## Purpose:
+## Purpose
   
 This repository and script(s) demonstrate in practice how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
 
-## Requirements:
+## Requirements
 
 Python 3 with following packages and their dependencies: pandas, geopandas.
 
@@ -35,7 +35,7 @@ Python 3 with following packages and their dependencies: pandas, geopandas.
     conda install -y -c ioos gdal=2.1.2
     ```
 
-## Data:
+## Data
 
 This script is planned to work with data that is described in the main article, see Järv et al. (2017). In short, the script requires three datasets:
   
@@ -58,7 +58,7 @@ You can run the tool with Python interpreter or with a terminal in a folder wher
   $ python mfd_interpolation.py
   ``` 
 
-## Contact:
+## Contact
 
 You can contact Olle Järv or Henrikki Tenkanen if you have any questions related to the model or the Python implementation of the model:
   
@@ -66,7 +66,7 @@ You can contact Olle Järv or Henrikki Tenkanen if you have any questions relate
  - henrikki.tenkanen (a) helsinki.fi
  - http://www.helsinki.fi/science/accessibility
 
-## License:
+## License
 
 mfd_interpolation.py and its related documents under this repository by Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. 
 More information about license: http://creativecommons.org/licenses/by-sa/4.0/
