@@ -11,7 +11,7 @@ Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 ## Purpose:
   
-This script demonstrates how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
+This repository and script(s) demonstrate in practice how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
 
 ## Requirements:
 
@@ -37,6 +37,8 @@ This script is planned to work with data that is described in the main article, 
   1) a disaggregated physical surface layer, 
   2) time-dependent human activity data,
   3) mobile phone data (CDR), or similar. 
+  
+See more information about the required datasets [here]()
 
 ## Contact:
 
