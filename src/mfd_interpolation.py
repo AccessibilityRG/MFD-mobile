@@ -69,22 +69,22 @@ def main():
     # ............................
     
     # Time use survey
-    time_use_fp = r"P:\h510\metropaccess\Aineistot\DYNAMO\Timeuse\TimeUse.xlsx"
+    time_use_fp = "/home/data/TimeUse.xlsx"
     
     # Disaggregated physical surface layer ( landuse + buildings + coverage areas + predefined statistical units )
-    dps_fp = r"P:\h510\metropaccess\Aineistot\DYNAMO\SpatialDomain\LandUseBuildingsGridMobileVoronoi_500m_Union.shp"
+    dps_fp = "/home/data/Disaggregated_physical_surface_500m.shp"
     
     # Mobile phone data (Call Detail Records)
-    cdr_fp = r"P:\h510\metropaccess\Aineistot\DYNAMO\MPdata\MP_24h.xlsx"
+    cdr_fp = "/home/data/MP_24h.xlsx"
     
     # Target zones (Predefined spatial units)
-    tz_fp = r"P:\h510\metropaccess\Aineistot\DYNAMO\OD\Grid500m_popRegister_with_both_GRD_IDs.shp"
+    tz_fp = "/home/data/Target_zones_grid100m.shp"
     
     # Output folder for the results
-    out_dir = r"C:\HY-Data\HENTENKA\Testaus\Dasymetic"
+    out_dir = "/home/results"
     
     # Prefix for the output name (time info for the filename will be added automatically)
-    out_prefix = "ZROP_test"
+    out_prefix = "ZROP_results"
     
     # Start hour
     start_h = 9
