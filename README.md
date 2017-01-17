@@ -49,7 +49,7 @@ See more information about the datasets from [here](docs/Data-specs.MD).
 
 The implemented version of the model for Python is written into a single Python script file [mfd_interpolation.py](src/mfd_interpolation.py).
 
-Before running the tool, you should update the parameters in the `main()` -function of the tool. See more details from here.
+Before running the tool, you should update the parameters in the `main()` -function of the tool. See more details from [here](src/).
 
 You can run the tool with Python interpreter or with a terminal in a folder where the script file is located:
   
