@@ -16,7 +16,7 @@ This script is part of the following article:
   PURPOSE:
   --------
 
-  This script demonstrates how time-dependent dasymetric interpolation model can be used to interpolate population distributed in spatially varying
+  This script demonstrates how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying
   coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
 
   REQUIREMENTS:
