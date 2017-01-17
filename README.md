@@ -1,6 +1,6 @@
 # Multi-temporal function-based dasymetric model for mobile phone data
 
-**This script is part of the following article:**
+#### This repository provides supporting information to the following article:**
 
  - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
   phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
@@ -8,6 +8,10 @@
 
 Copyright (C) 2017.  Digital Geography Group / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
 Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
+
+#### Check the latest version!
+
+This repository is a version that comes with the article mentioned above.
 
 ## Purpose:
   
