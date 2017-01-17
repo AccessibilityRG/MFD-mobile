@@ -11,7 +11,7 @@ Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 #### Check the latest version!
 
-This repository is a released version (1.0) that comes with the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD_Mobile).
+This repository is the released version (1.0) that original one belonging to the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD_Mobile).
 
 ## Purpose:
   
@@ -42,7 +42,7 @@ This script is planned to work with data that is described in the main article, 
   2) time-dependent human activity data,
   3) mobile phone data (CDR), or similar. 
   
-See more information about the required datasets [here]()
+See more information about the datasets from [here]()
 
 ## Contact:
 
