@@ -67,6 +67,6 @@ You can contact Olle Järv or Henrikki Tenkanen if you have any questions relate
 
 ## License:
 
-mfd_interpolation.py by Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. More information about license: http://creativecommons.org/licenses/by/4.0/
-
+mfd_interpolation.py and its related documents under this repository by Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. 
+More information about license: http://creativecommons.org/licenses/by-sa/4.0/
 

@@ -48,7 +48,7 @@ This script is part of the following article:
 
   mfd_interpolation.py by Accessibility Research Group (University of Helsinki) is licensed under
   a Creative Commons Attribution 4.0 International License.
-  More information about license: http://creativecommons.org/licenses/by/4.0/
+  More information about license: http://creativecommons.org/licenses/by-sa/4.0/
 
 """
 
