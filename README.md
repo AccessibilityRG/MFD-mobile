@@ -2,21 +2,33 @@
 
 **This script is part of the following article:**
 
- - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). Enhancing spatial accuracy of mobile
-  phone data using multi-temporal dasymetric interpolation. Published in International Journal of 
-  Geographical Information Science.
+ - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
+  phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
+  Geographical Information Science**.
 
 Copyright (C) 2017.  Digital Geography Group / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
 Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 ## Purpose:
   
-This script demonstrates how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying
-coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
+This script demonstrates how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
 
 ## Requirements:
 
 Python 3 with following packages and their dependencies: pandas, geopandas.
+
+### Installations
+
+**We highly recommend using** [Anaconda](https://www.continuum.io/anaconda-overview) which is an open source distribution of the Python programming language for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. Pandas comes with the basic installation package of Anaconda:
+
+ - Download [Anaconda installer (64 bit)](https://www.continuum.io/downloads) for Windows / Linux / Mac.
+ 
+ - Install Geopandas and it's dependencies with [conda](http://conda.pydata.org/docs/using/using.html) in your terminal or command prompt:
+ 
+    ```
+    conda install -y -c ioos geopandas=0.2.1
+    conda install -y -c ioos gdal=2.1.2
+    ```
 
 ## Data:
 
@@ -36,7 +48,6 @@ You can contact Olle Järv or Henrikki Tenkanen if you have any questions relate
 
 ## License:
 
-mfd_interpolation.py by Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License.
-More information about license: http://creativecommons.org/licenses/by/4.0/
+mfd_interpolation.py by Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. More information about license: http://creativecommons.org/licenses/by/4.0/
 
 
