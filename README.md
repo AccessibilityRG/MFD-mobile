@@ -39,13 +39,11 @@ Python 3 with following packages and their dependencies: pandas, geopandas.
 
 This script is planned to work with data that is described in the main article, see Järv et al. (2017). In short, the script requires three datasets:
   
-  1) a disaggregated physical surface layer, 
+  1. a disaggregated physical surface layer, 
+  2. time-dependent human activity data,
+  3. mobile phone data (CDR), or similar. 
   
-  2) time-dependent human activity data,
-  
-  3) mobile phone data (CDR), or similar. 
-  
-See more information about the datasets from [here](docs/Data-specs.MD)
+See more information about the datasets from [here](docs/Data-specs.MD).
 
 ## Source Codes
 
