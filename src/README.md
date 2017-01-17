@@ -6,7 +6,9 @@ You can run the mfd_interpolation.py tool with Python interpreter or with a term
   $ cd /home/mfd-mobile/src
   $ python mfd_interpolation.py
   ``` 
-  
+
+## Parameters
+
 **Before running the tool** you should adjust the necessary parameters and filepaths in the `main()` -function of the [script](mfd_interpolation.py). 
 You need to specify following parameters and filepaths:
 
