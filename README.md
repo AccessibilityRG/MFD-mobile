@@ -44,6 +44,19 @@ This script is planned to work with data that is described in the main article, 
   
 See more information about the datasets from [here]()
 
+## Source Codes
+
+The implemented version of the model for Python is written into a single Python script file [mfd_interpolation.py](src/mfd_interpolation.py).
+
+Before running the tool, you should update the parameters in the `main()` -function of the tool. See more details from here.
+
+You can run the tool with Python interpreter or with a terminal in a folder where the script file is located:
+  
+  ```
+  $ cd /home/mfd-mobile/src
+  $ python mfd_interpolation.py
+  ``` 
+
 ## Contact:
 
 You can contact Olle Järv or Henrikki Tenkanen if you have any questions related to the model or the Python implementation of the model:
