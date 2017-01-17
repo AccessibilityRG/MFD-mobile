@@ -1,6 +1,6 @@
 # Multi-temporal function-based dasymetric model for mobile phone data
 
-#### This repository provides supporting information to the following article:**
+#### This repository provides supporting information to the following article:
 
  - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
   phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
@@ -11,7 +11,7 @@ Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 #### Check the latest version!
 
-This repository is a version that comes with the article mentioned above.
+This repository is a released version (1.0) that comes with the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD_Mobile).
 
 ## Purpose:
   
