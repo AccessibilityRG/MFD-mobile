@@ -238,7 +238,14 @@ def main():
         # 6. Calculate the Estimated Human Presences (EHP)
         # ---------------------------------------------------------------------
 
-        EHP = calculateEHP(df=RFA, time_window=time_window, sz_id_col=sz_col_dps)
+        # Abbreviations:
+        # sf_col ==> Seasonal factor column
+        
+        # Note:
+        # By default the seasonal factor is read from the human activity data (i.e. from the seasonal_factor_column)
+        # However, you can also use the seasonal factor that is classified based on the physical surface layer features. Then, pass column 'SF' to sf_col below)
+        
+        EHP = calculateEHP(df=RFA, time_window=time_window, sz_id_col=sz_col_dps, sf_col=seasonal_factor_col)
         
         # ----------------------------------------------------------------------
         # 7. Calculate Relative Observed Population (ROP)
@@ -436,7 +443,7 @@ def getArea(row, geom_col, target_col):
     row[target_col] = row[geom_col].area
     return row
 
-def calculateEHP(df, time_window, sz_id_col):
+def calculateEHP(df, time_window, sz_id_col, sf_col):
     """
     Calculate Estimated Human Presence (EHP).
     See chapter 3.3 in the article + chapter S2.3, Figure S2 and Table S3 in the supplementary materials.
@@ -446,7 +453,7 @@ def calculateEHP(df, time_window, sz_id_col):
     tw = time_window + 't'
     
     # Calculate (absolute) estimated human presence (aEHP) for selected time window  ==> [Relative Floor Area] * [Seasonal Factor Coefficient] * [Hour Factor H]
-    df['aEHP %s' % tw] = df['RFA'] * df['SF'] * df[tw]
+    df['aEHP %s' % tw] = df['RFA'] * df[sf_col] * df[tw]
 
     # Create column for estimated human presence (EHP) that is a normalized aEHP (scale 0.0 - 1.0).
     df['EHP %s' % tw] = None

@@ -103,7 +103,8 @@ Time specific human activity data per function type that we use is in a followin
 ### Note
 
 In the Python implementation of the model, you should name the columns representing the probability for human presence at specific activity function type at specific time of the day as `H9t`.   
-Where the column name starts with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 't' -letter (*time-use*).  
+
+Hence, the column name should start with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 't' -letter (*time-use*).  
 
 ## Mobile phone data
 
@@ -122,7 +123,8 @@ The mobile phone data (Call Detail Records) that we use is in a following format
 ### Note
 
 In the Python implementation of the model, you should name the columns representing the amount of mobile phone users registered on a specific base station at specific time of the day as `H9m`.   
-Where the column name starts with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 'm' -letter (*mobile-phone-user*).  
+
+Hence, the column name should start with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 'm' -letter (*mobile-phone-user*).  
 
 
 
