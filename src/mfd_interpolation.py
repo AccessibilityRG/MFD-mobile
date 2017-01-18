@@ -335,12 +335,9 @@ def returnFloors(row, height_col, type_col, target_col):
     # If building type is 'Residential' mean floor height is 3.5
     if row[type_col] == 'Residential':
       row[target_col] = row[height_col] / 3.5
-    # If building type is 'Work' mean floor height is 4.5
-    elif row[type_col] == 'Work':
-      row[target_col] = row[height_col] / 4.5
-    # In other cases mean floor height is 4.0
+    # In other cases mean floor height is 4.5
     else:
-      row[target_col] = row[height_col] / 4.0
+      row[target_col] = row[height_col] / 4.5
     return row
 
 def calculateArea(df, geom_col, target_col):

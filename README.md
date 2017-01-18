@@ -1,14 +1,13 @@
 # Multi-temporal function-based dasymetric model for mobile phone data
 
-#### This repository provides supporting information to the following article:
+## Scientific article
+
+This repository provides supporting information and a Python implementation of a multi-temporal function-based dasymetric interpolation model 
+that is presented in the following article:
 
  - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
   phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
   Geographical Information Science**.
-
-Copyright (C) 2017.  Digital Geography Group / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
-
-Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 #### Check the latest version!
 
@@ -57,6 +56,8 @@ You can run the tool with Python interpreter or with a terminal in a folder wher
   $ cd /home/mfd-mobile/src
   $ python mfd_interpolation.py
   ``` 
+
+Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 ## Contact
 
