@@ -5,7 +5,6 @@ MFD interpolation model requires basically three different datasets that all has
  1. [Disaggregated physical surface layer](#disaggregated-physical-surface-layer)
  2. [Human activity data](#human-activity-data)
  3. [Mobile phone data](#mobile-phone-data)
- 4. [Column names in the datasets]()
  
 Read a full description of these datasets from our [article](../README.md#scientific-article) and its supplementary information. 
 
@@ -86,13 +85,44 @@ The physical surface layer is linked with data on **human activity in time**.
  - Temporally sensitive human activity information is incorporated to disaggregated spatial subunits in the physical surface layer by linking 
  human activity type with activity function type of subunits. 
 
-![]()
+ ![](../img/Figure_S2.tif)
+
+Time specific human activity data per function type that we use is in a following format (an example):
+ 
+| Activity_function_type  |	Spatial_unit | Seasonal factor | H12t | H13t | H20t |
+|-------------------------|--------------|-----------------|------|------|------|
+| Residential   | building | 0.9  | 21 | 36.1 | 36.1 | 74.6 |
+| Residential   | area     | 0.1  | 21 | 36.1 | 36.1 | 74.6 |
+| RetailService | building | 0.9  | 70 | 5.7  | 5.3  | 1.4  |
+| Other         | area     | 0.1  | 66 | 10.7 | 10.2 | 10.9 |
+| Other         | building | 0.9  | 1  | 10.7 | 10.2 | 10.9 |
+| Transport     | area     | 0.1  | 11 | 14.8 | 13.9 | 9.6  |
+| Restricted    | area     | 0.1  | 55 | 0.0  | 0.0  | 0.0  |
+| Work          | building | 0.9  | 0  | 32.8 | 34.4 | 3.5  |
+
+### Note
+
+In the Python implementation of the model, you should name the columns representing the probability for human presence at specific activity function type at specific time of the day as `H9t`.   
+Where the column name starts with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 't' -letter (*time-use*).  
 
 ## Mobile phone data
 
+The mobile phone data (Call Detail Records) that we use is in a following format (an example):
+
+| BaseStation_ID  |	H12m | H13m | H20m |
+|-----------------|------|------|------|
+| 1001 | 50  | 65  | 21 | 
+| 1002 | 80  | 123 | 70 |
+| 1003 | 130 | 234 | 66 |
+| 1004 | 18  | 11  | 1  |
+| 1005 | 59  | 40  | 11 |
+| 1006 | 100 | 84  | 55 |
+| 1007 | 8   | 15  | 0  |
+
+### Note
+
+In the Python implementation of the model, you should name the columns representing the amount of mobile phone users registered on a specific base station at specific time of the day as `H9m`.   
+Where the column name starts with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 'm' -letter (*mobile-phone-user*).  
 
 
-## Column names in the datasets
-
-In the tool following column names are used:
 
