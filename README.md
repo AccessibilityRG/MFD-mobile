@@ -66,6 +66,10 @@ You can contact Olle Järv or Henrikki Tenkanen if you have any questions relate
  - olle.jarv (a) helsinki.fi
  - henrikki.tenkanen (a) helsinki.fi
  - http://www.helsinki.fi/science/accessibility
+ 
+## How to cite?
+
+If you use this work, please find our publication **"Multi-temporal function-based dasymetric model for mobile phone data"** from [Zenodo](https://zenodo.org/) to find out the citing practices from there.
 
 ## License
 
