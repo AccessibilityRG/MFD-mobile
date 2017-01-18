@@ -61,10 +61,6 @@ def main():
     
     """ Main method that controls the Multi-temporal function-based dasymetric interpolation model (MFD interpolation). """
     
-    # ------------------------------------------------------------------
-    # 1. Read input data
-    # -------------------------------------------------------------------
-    
     # File paths
     # ...........
     
@@ -158,7 +154,11 @@ def main():
     # Iterate over the desired hours of the day
     for xhour in range(start_h, end_h+1):
         print("Processing hour: %s" % xhour)
-        
+
+        # ------------------------------------------------------------------
+        # 1. Read input data
+        # -------------------------------------------------------------------
+
         # tu = time use
         # dps = disaggregated physical layer
         # cdr = mobile phone data
