@@ -68,7 +68,7 @@ def main():
     hat_fp = "/home/data/TimeUse.xlsx"
     
     # Disaggregated physical surface layer ( landuse + buildings + coverage areas + predefined statistical units )
-    dps_fp = "/home/data/Disaggregated_physical_surface_500m.shp"
+    dps_fp = "/home/data/Disaggregated_physical_surface_100m.shp"
     
     # Mobile phone data (Call Detail Records)
     cdr_fp = "/home/data/MP_24h.xlsx"
