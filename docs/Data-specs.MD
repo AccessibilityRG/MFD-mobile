@@ -85,7 +85,7 @@ The physical surface layer is linked with data on **human activity in time**.
  - Temporally sensitive human activity information is incorporated to disaggregated spatial subunits in the physical surface layer by linking 
  human activity type with activity function type of subunits. 
 
- ![](../img/Figure_S2.tif)
+ ![](../img/Figure_S2.jpg)
 
 Time specific human activity data per function type that we use is in a following format (an example):
  
