@@ -162,8 +162,8 @@ def main():
         # tu = time use
         # dps = disaggregated physical layer
         # cdr = mobile phone data
-        # output = output spatial layer in statistical units
-        tu, dps, cdr, output = readFiles(time_use_fp=hat_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
+        # target = output spatial layer in statistical units
+        tu, dps, cdr, target = readFiles(time_use_fp=hat_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
     
         # Use time window (xhour) for the whole analysis 
         # ...............................................
@@ -262,7 +262,7 @@ def main():
         out = os.path.join(out_dir, out_filename)
     
         # Save file to disk
-        saveToShape(input_df=ZROP, grid_df=output, output_path=out, tz_id_col_spatial=target_zone_col_spatial, tz_id_col=tz_col, epsg_code=epsg)
+        saveToShape(input_df=ZROP, grid_df=target, output_path=out, tz_id_col_spatial=target_zone_col_spatial, tz_id_col=tz_col, epsg_code=epsg)
         
 
 def readFiles(time_use_fp=None, dps_fp=None, cdr_fp=None, tz_fp=None):
