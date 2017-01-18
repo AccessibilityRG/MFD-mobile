@@ -13,7 +13,7 @@ for our model and what is described in the article.
  
 ## Disaggregated physical surface layer
 
-### To prepare a physical surface layer in the MFD model for the spatial disaggregation of the study area:
+#### 1. To prepare a physical surface layer in the MFD model:
  
  1. a land cover layer is created by aggregating land cover parcels based on six activity function classes as indicated in the table below. 
    This enables linking the land cover layer with the classification of building usage and human activity types
@@ -50,7 +50,7 @@ Now, each disaggregated spatial subunit in the physical surface layer has three 
 | Restricted | | water, wetland, arable land, restricted area (e.g. wasteland) | not accessible, no activity |
 
    
-### To prepare a disaggregated physical surface layer
+#### 2. To prepare a disaggregated physical surface layer
 
 In the second step: 
 
