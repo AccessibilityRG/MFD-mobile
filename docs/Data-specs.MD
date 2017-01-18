@@ -73,7 +73,7 @@ In the second step:
 | 10301 | 10| 30| retail&service | building | 10 | 5 | 50 | 0.29 |
 | 10302 | 10| 30| restricted     | land     | 10 | 1 | 10 | 0.06 |
 | 10303 | 10| 30| transport      | land	    | 10 | 1 | 10 | 0.06 ||
-| Total | | | |	70 |	| 170 |	1 |
+| Total | | | |  |	70 |	| 170 |	1 |
 
 
 ## Human activity data
