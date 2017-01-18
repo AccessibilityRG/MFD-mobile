@@ -62,7 +62,20 @@ In the second step:
  by multiplying area with the number of floors. 
  
  3. This allows for a calculation of a relative floor area RFA for each subunit within a base station from the sum of FA within the given base station, 
- as illustrated in table below.
+ as illustrated in the table below.
+ 
+| Subunit ID | Base Station ID (source zones) |	Grid cell ID (target zones) | Activity function type | Spatial unit type | Area \[km2\] | Number of floors | FA \[km2\] | RFA \[%\] |
+|------------|--------------------------------|-----------------------------|------------------------|-------------------|--------------|------------------|------------|-----------|
+| 10101 | 10| 10| residential    | building | 10 | 5 | 50 | 0.29 |
+| 10201 | 10| 20| residential    | land	    | 10 | 1 | 10 | 0.06 |
+| 10202 | 10| 20| work           | building | 10 | 3 | 30 | 0.18 |
+| 10203 | 10| 20| work           | land	    | 10 | 1 | 10 | 0.06 |
+| 10301 | 10| 30| retail&service | building | 10 | 5 | 50 | 0.29 |
+| 10302 | 10| 30| restricted     | land     | 10 | 1 | 10 | 0.06 |
+| 10303 | 10| 30| transport      | land	    | 10 | 1 | 10 | 0.06 |
+|-------|---|---|----------------|----------|----|---|----|------|
+| Total | | | |	70 |	| 170 |	1 |
+
 
 ## Human activity data
 
