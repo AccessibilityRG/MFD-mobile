@@ -65,11 +65,11 @@ def main():
     # 1. Read input data
     # -------------------------------------------------------------------
     
-    # File paths and parameters
-    # ............................
+    # File paths
+    # ...........
     
-    # Time use survey
-    time_use_fp = "/home/data/TimeUse.xlsx"
+    # Human activity type data
+    hat_fp = "/home/data/TimeUse.xlsx"
     
     # Disaggregated physical surface layer ( landuse + buildings + coverage areas + predefined statistical units )
     dps_fp = "/home/data/Disaggregated_physical_surface_500m.shp"
@@ -86,21 +86,35 @@ def main():
     # Prefix for the output name (time info for the filename will be added automatically)
     out_prefix = "ZROP_results"
 
-    # Source zone column (Base Station ID)
-    # (should be the same in the time-use survey data and in the disaggregated physical surface layer)
-
-    source_zone_col = 'BS_ID'
-
-    # Target zone column (Grid Cell ID)
-    # (should be the same in the time-use survey data and in the disaggregated physical surface layer)
-
-    target_zone_col = 'GC_ID'
+    # Column names in the human activity data
+    # .......................................
 
     # Activity function type column in the time-use survey data
     activity_function_type = 'Activity_function_type'
 
+    # Seasonal factor column in the time-use survey data
+    seasonal_factor_col = 'Seasonal_factor'
+
+    # Spatial unit column in the time-use survey data
+    spatial_unit_col = 'Spatial_unit'
+
+    # Column names in the disaggregated physical surface layer
+    # ........................................................
+
+    # Source zone column (Base Station ID)
+    source_zone_col = 'BS_ID'
+
+    # Target zone column (Grid Cell ID)
+    target_zone_col = 'GC_ID'
+
+    # Column with building height information in the disaggregated physical surface layer
+    building_height_col = 'MEAN'
+
     # Column in the disaggregated physical surface layer that has information about building and landuse types
     building_landuse_features = 'B_LU_feats'
+
+    # Time and projection parameters
+    # ..............................
 
     # Start hour
     start_h = 9
@@ -123,7 +137,7 @@ def main():
         # dps = disaggregated physical layer
         # cdr = mobile phone data
         # output = output spatial layer in statistical units
-        tu, dps, cdr, output = readFiles(time_use_fp=time_use_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
+        tu, dps, cdr, output = readFiles(time_use_fp=hat_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
     
         # Use time window 4pm - 5 pm for the whole analysis (an example)
         # ..............................................................
@@ -158,17 +172,19 @@ def main():
         # Join necessary columns from <tu> table
         # .........................................
 
+        # Columns in the time-use dataset
+        # ...............................
+        # time_window + 't' -command below produces e.g. 'H10t' which is a column that has the time-usage information for specific hour
+        tu_cols = [time_window+'t', spatial_unit_col, activity_function_type, seasonal_factor_col]
+
+        # Columns in the disaggregated physical surface layer
+        # Note: these are done automatically by the tool in the previous step.
+
         # Abbreviations:
         # AFT ==> Activity_function_type
         # SPUT ==> Spatial_unit
         # SF ==> Seasonal_factor
 
-        # Columns in the time-use dataset
-        # ...............................
-        # time_window + 't' -command below produces e.g. 'H10t' which is a column that has the time-usage information for specific hour
-        tu_cols = [time_window+'t', 'Spatial_unit', 'Activity_function_type', 'Seasonal_factor']
-
-        # Columns in the disaggregated physical surface layer
         dps_cols = ['AFT', 'SPUT', 'SF']
 
         # Join the datasets together based on dps_cols and all tu_cols except the first item (i.e. time-usage info column such as 'H10t')
@@ -189,7 +205,7 @@ def main():
         # Activity function type column in the dataset
         aft = activity_function_type
 
-        RFA = calculateRelativeFloorArea(dps, aft_col=aft, sz_id_col=sz_col)
+        RFA = calculateRelativeFloorArea(dps, height_col=building_height_col, aft_col=aft, sz_id_col=sz_col)
     
         # ---------------------------------------------------------------------
         # 6. Calculate the Estimated Human Presences (EHP)
@@ -308,14 +324,14 @@ def classify(row, incol, activityType, spatialUnit, seasonalFactor):
 
     return row
 
-def calculateRelativeFloorArea(df=None, aft_col=None, sz_id_col=None):
+def calculateRelativeFloorArea(df=None, height_col=None, aft_col=None, sz_id_col=None):
     """ 
     Calculate the relative floor area (RFA) for each subunit within a base station. 
     See chapter 3.2 in the article + chapter S2.2 and Table S2 in the supplementary materials.
     """
 
     # Floor ==> Calculate the number of floors in a building based on mean height
-    df = calculateFloors(df=df, height_col='MEAN', aft_col=aft_col, target_col='Floor')
+    df = calculateFloors(df=df, height_col=height_col, aft_col=aft_col, target_col='Floor')
     
     # FEA ==> Calculate the Feature Area (i.e. Area of UNION polygon)
     df['FEA'] = None
