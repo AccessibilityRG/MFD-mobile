@@ -97,14 +97,20 @@ def main():
 
     # Spatial unit column in the time-use survey data
     spatial_unit_col = 'Spatial_unit'
+    
+    # Important Note:
+    # ---------------
+    # Time specific human activity percentages per function type should be named in a following manner:
+    # H9t, H10t, H11t, H12t, H13t  --> where the numbers informs the hour of the day 
 
+    # ........................................................
     # Column names in the disaggregated physical surface layer
     # ........................................................
 
-    # Source zone column (Base Station ID)
-    source_zone_col = 'BS_ID'
+    # Source zone column (Base Station ID) in the Disaggregated physical surface layer
+    source_zone_col_dps = 'BS_ID'
 
-    # Target zone column (Grid Cell ID)
+    # Target zone column (Grid Cell ID) 
     target_zone_col = 'GC_ID'
 
     # Column with building height information in the disaggregated physical surface layer
@@ -112,16 +118,36 @@ def main():
 
     # Column in the disaggregated physical surface layer that has information about building and landuse types
     building_landuse_features = 'B_LU_feats'
+    
+    # ...........................................
+    # Column names in the Mobile phone data (CDR)
+    # ...........................................
+
+    # Source zone column (Base Station ID) in the Mobile phone dataset
+    source_zone_col_cdr = 'BaseStation_ID'
+    
+    # Important Note:
+    # ---------------
+    # Time specific amount of mobile phone users per Base Station should be named in a following manner:
+    # H9m, H10m, H11m, H12m, H13m  --> where the numbers informs the hour of the day 
+    
+    # ..............................................
+    # Column names in the Target zone spatial layer 
+    # ..............................................
+    
+    # Target zone column (Grid Cell ID) in the spatial layer 
+    # --> typically should be the same name as in the disaggregated physical surface layer
+    target_zone_col_spatial = 'GC_ID'
 
     # Time and projection parameters
     # ..............................
 
     # Start hour
     start_h = 9
-    
+
     # End hour
     end_h = 16
-    
+
     # EPSG code for desired output projection
     epsg = 3301
 
@@ -139,8 +165,8 @@ def main():
         # output = output spatial layer in statistical units
         tu, dps, cdr, output = readFiles(time_use_fp=hat_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
     
-        # Use time window 4pm - 5 pm for the whole analysis (an example)
-        # ..............................................................
+        # Use time window (xhour) for the whole analysis 
+        # ...............................................
         time_window = 'H%s' % xhour
                 
         # --------------------------------------------------------------------
@@ -185,7 +211,7 @@ def main():
         # SPUT ==> Spatial_unit
         # SF ==> Seasonal_factor
 
-        dps_cols = ['AFT', 'SPUT', 'SF']
+        dps_cols = ['SPUT', 'AFT', 'SF']
 
         # Join the datasets together based on dps_cols and all tu_cols except the first item (i.e. time-usage info column such as 'H10t')
         dps = dps.merge(tu[tu_cols], left_on=dps_cols, right_on=tu_cols[1:])
@@ -194,9 +220,10 @@ def main():
         # .........................................
 
         # Source zones column ==> I.e. column that has unique IDs for mobile phone coverage areas (base stations)
-        sz_col = source_zone_col
+        sz_col_dps = source_zone_col_dps
+        sz_col_cdr = source_zone_col_cdr
     
-        dps = dps.merge(cdr[[twm, 'RMP %s' % twm, sz_col]], on=sz_col)
+        dps = dps.merge(cdr[[twm, 'RMP %s' % twm, sz_col_cdr]], left_on=sz_col_dps, right_on=sz_col_cdr)
     
         # ---------------------------------------------------------------------
         # 5. Calculate the Relative Floor Area (RFA)
@@ -205,13 +232,13 @@ def main():
         # Activity function type column in the dataset
         aft = activity_function_type
 
-        RFA = calculateRelativeFloorArea(dps, height_col=building_height_col, aft_col=aft, sz_id_col=sz_col)
+        RFA = calculateRelativeFloorArea(dps, height_col=building_height_col, aft_col=aft, sz_id_col=sz_col_dps)
     
         # ---------------------------------------------------------------------
         # 6. Calculate the Estimated Human Presences (EHP)
         # ---------------------------------------------------------------------
 
-        EHP = calculateEHP(df=RFA, time_window=time_window, sz_id_col=sz_col)
+        EHP = calculateEHP(df=RFA, time_window=time_window, sz_id_col=sz_col_dps)
         
         # ----------------------------------------------------------------------
         # 7. Calculate Relative Observed Population (ROP)
@@ -227,7 +254,7 @@ def main():
         tz_col = target_zone_col
 
         ZROP = calculateZROP(df=ROP, time_window=time_window, tz_id_col=tz_col)
-    
+        
         # -----------------------------------------------------------------------
         # 9. Save result to disk in Shapefile format
         # -----------------------------------------------------------------------
@@ -235,7 +262,7 @@ def main():
         out = os.path.join(out_dir, out_filename)
     
         # Save file to disk
-        saveToShape(input_df=ZROP, grid_df=output, output_path=out, tz_id_col=tz_col, epsg_code=epsg)
+        saveToShape(input_df=ZROP, grid_df=output, output_path=out, tz_id_col_spatial=target_zone_col_spatial, tz_id_col=tz_col, epsg_code=epsg)
         
 
 def readFiles(time_use_fp=None, dps_fp=None, cdr_fp=None, tz_fp=None):
@@ -511,11 +538,11 @@ def calculateZROP(df, time_window, tz_id_col):
 
     return ZROP_grid
 
-def saveToShape(input_df, grid_df, output_path, tz_id_col, epsg_code):
+def saveToShape(input_df, grid_df, output_path, tz_id_col_spatial, tz_id_col, epsg_code):
     """ Save ZROP values in <input_df> as Shapefile defined in <grid_df> to <output_path> using projection in <epsg code> """
     
     # Join the data with grid GeoDataFrame
-    geo = grid_df[[tz_id_col, 'geometry']].merge(input_df, left_on=tz_id_col, right_on=tz_id_col, how='inner')
+    geo = grid_df[[tz_id_col_spatial, 'geometry']].merge(input_df, left_on=tz_id_col_spatial, right_on=tz_id_col, how='inner')
     
     # Re-project
     geo['geometry'] = geo['geometry'].to_crs(epsg=epsg_code)
