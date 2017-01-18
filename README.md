@@ -11,7 +11,7 @@ that is presented in the following article:
 
 #### Check the latest version!
 
-This repository is the released version (1.0) that original one belonging to the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD_Mobile).
+This repository is the released version (1.0) that original one belonging to the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD-mobile).
 
 ## Purpose
   
