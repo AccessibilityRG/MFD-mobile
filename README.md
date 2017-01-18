@@ -1,9 +1,8 @@
-# Multi-temporal function-based dasymetric model for mobile phone data
+# Multi-temporal function-based dasymetric interpolation model for mobile phone data
 
 ## Scientific article
 
-This repository provides supporting information and a Python implementation of a multi-temporal function-based dasymetric interpolation model 
-that is presented in the following article:
+This repository provides supporting information and a Python implementation of a multi-temporal function-based dasymetric interpolation model that is presented in the following article:
 
  - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
   phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
