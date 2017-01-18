@@ -15,7 +15,7 @@ This repository is the released version (1.0) that original one belonging to the
 
 ## Purpose
   
-This repository and script(s) demonstrate in practice how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
+This repository and script(s) demonstrate in practice how multi-temporal function-based dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
 
 ## Requirements
 
