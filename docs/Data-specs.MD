@@ -5,6 +5,7 @@ MFD interpolation model requires basically three different datasets that all has
  1. [Disaggregated physical surface layer](#disaggregated-physical-surface-layer)
  2. [Human activity data](#human-activity-data)
  3. [Mobile phone data](#mobile-phone-data)
+ 4. [Column names in the datasets]()
  
 Read a full description of these datasets from our [article](../README.md#scientific-article) and its supplementary information. 
 
@@ -75,7 +76,23 @@ In the second step:
 | 10303 | 10| 30| transport      | land	    | 10 | 1 | 10 | 0.06 ||
 | **Total** | | | |  |	**70** |	| **170** |	**1.0** |
 
-
 ## Human activity data
 
+The physical surface layer is linked with data on **human activity in time**. 
+
+ - We apply the time usage of people by activity type on working days (Mon.–Fri.) which is based on the time use survey (Eurostat). 
+ - The average hourly distribution of people by activity type is calculated based on the average time usage of people by activity type 
+ for each hour of a day at an aggregated level (see figure below).
+ - Temporally sensitive human activity information is incorporated to disaggregated spatial subunits in the physical surface layer by linking 
+ human activity type with activity function type of subunits. 
+
+![]()
+
 ## Mobile phone data
+
+
+
+## Column names in the datasets
+
+In the tool following column names are used:
+

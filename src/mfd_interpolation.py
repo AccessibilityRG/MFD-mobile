@@ -85,7 +85,23 @@ def main():
     
     # Prefix for the output name (time info for the filename will be added automatically)
     out_prefix = "ZROP_results"
-    
+
+    # Source zone column (Base Station ID)
+    # (should be the same in the time-use survey data and in the disaggregated physical surface layer)
+
+    source_zone_col = 'BS_ID'
+
+    # Target zone column (Grid Cell ID)
+    # (should be the same in the time-use survey data and in the disaggregated physical surface layer)
+
+    target_zone_col = 'GC_ID'
+
+    # Activity function type column in the time-use survey data
+    activity_function_type = 'Activity_function_type'
+
+    # Column in the disaggregated physical surface layer that has information about building and landuse types
+    building_landuse_features = 'B_LU_feats'
+
     # Start hour
     start_h = 9
     
@@ -94,7 +110,7 @@ def main():
     
     # EPSG code for desired output projection
     epsg = 3301
-        
+
     # ----------------------------------------------------------
     
     print("Running Multi-temporal dasymetric interpolation ...")
@@ -108,9 +124,6 @@ def main():
         # cdr = mobile phone data
         # output = output spatial layer in statistical units
         tu, dps, cdr, output = readFiles(time_use_fp=time_use_fp, dps_fp=dps_fp, cdr_fp=cdr_fp, tz_fp=tz_fp)
-    
-        # Rename Site_ID to site_id
-        dps = dps.rename(columns={'Site_ID': 'site_id'})
     
         # Use time window 4pm - 5 pm for the whole analysis (an example)
         # ..............................................................
@@ -131,8 +144,12 @@ def main():
         # --------------------------------------------------------------------
         # 3. Reclassify Landuse layer ( based on Open Street Map information )
         # --------------------------------------------------------------------
-    
-        dps = reclassifyLanduse(dps_df=dps)
+
+        # Abbreviations:
+        # blf_col ==> Building and landuse features
+        blf = building_landuse_features
+
+        dps = reclassifyLanduse(dps_df=dps, blf_col=blf)
     
         # --------------------------------------------------------------------
         # 4. Join layers into same DataFrame
@@ -140,28 +157,45 @@ def main():
     
         # Join necessary columns from <tu> table
         # .........................................
-    
-        dps = dps.merge(tu[[time_window+'t', 'ActivityLocation', 'Type', 'Type_weight']],
-                            left_on=['AFT', 'SPUT', 'SF'],
-                            right_on=['ActivityLocation', 'Type', 'Type_weight'])
-    
+
+        # Abbreviations:
+        # AFT ==> Activity_function_type
+        # SPUT ==> Spatial_unit
+        # SF ==> Seasonal_factor
+
+        # Columns in the time-use dataset
+        # ...............................
+        # time_window + 't' -command below produces e.g. 'H10t' which is a column that has the time-usage information for specific hour
+        tu_cols = [time_window+'t', 'Spatial_unit', 'Activity_function_type', 'Seasonal_factor']
+
+        # Columns in the disaggregated physical surface layer
+        dps_cols = ['AFT', 'SPUT', 'SF']
+
+        # Join the datasets together based on dps_cols and all tu_cols except the first item (i.e. time-usage info column such as 'H10t')
+        dps = dps.merge(tu[tu_cols], left_on=dps_cols, right_on=tu_cols[1:])
     
         # Join necessary columns from <cdr> table
         # .........................................
+
+        # Source zones column ==> I.e. column that has unique IDs for mobile phone coverage areas (base stations)
+        sz_col = source_zone_col
     
-        dps = dps.merge(cdr[[twm, 'RMP %s' % twm, 'site_id']], on='site_id')
+        dps = dps.merge(cdr[[twm, 'RMP %s' % twm, sz_col]], on=sz_col)
     
         # ---------------------------------------------------------------------
         # 5. Calculate the Relative Floor Area (RFA)
         # ---------------------------------------------------------------------
-    
-        RFA = calculateRelativeFloorArea(dps)
+
+        # Activity function type column in the dataset
+        aft = activity_function_type
+
+        RFA = calculateRelativeFloorArea(dps, aft_col=aft, sz_id_col=sz_col)
     
         # ---------------------------------------------------------------------
         # 6. Calculate the Estimated Human Presences (EHP)
         # ---------------------------------------------------------------------
-    
-        EHP = calculateEHP(df=RFA, time_window=time_window)
+
+        EHP = calculateEHP(df=RFA, time_window=time_window, sz_id_col=sz_col)
         
         # ----------------------------------------------------------------------
         # 7. Calculate Relative Observed Population (ROP)
@@ -172,8 +206,11 @@ def main():
         # -----------------------------------------------------------------------
         # 8. Aggregate spatially to desired target zones (ZROP)
         # -----------------------------------------------------------------------
-    
-        ZROP = calculateZROP(df=ROP, time_window=time_window, grid_cell_id_col='GRD_INSPIR')
+
+        # Target zones column ==> I.e. a column for unique ids of desired spatial grid cells ('Grid Cell ID' in the article)
+        tz_col = target_zone_col
+
+        ZROP = calculateZROP(df=ROP, time_window=time_window, tz_id_col=tz_col)
     
         # -----------------------------------------------------------------------
         # 9. Save result to disk in Shapefile format
@@ -182,7 +219,7 @@ def main():
         out = os.path.join(out_dir, out_filename)
     
         # Save file to disk
-        saveToShape(input_df=ZROP, grid_df=output, output_path=out, grid_cell_id='gridcode', epsg_code=epsg)
+        saveToShape(input_df=ZROP, grid_df=output, output_path=out, tz_id_col=tz_col, epsg_code=epsg)
         
 
 def readFiles(time_use_fp=None, dps_fp=None, cdr_fp=None, tz_fp=None):
@@ -194,29 +231,29 @@ def readFiles(time_use_fp=None, dps_fp=None, cdr_fp=None, tz_fp=None):
     tz = gpd.read_file(tz_fp)
     return time_use, dps, cdr, tz
 
-def reclassifyLanduse(dps_df=None):
-    """ Function reclassifies OSM landuse attributes based on criteria in Table S2."""
+def reclassifyLanduse(dps_df=None, blf_col=None):
+    """ Function reclassifies OSM building and landuse attributes based on criteria in Table S2."""
 
     # Create new columns for activity location categories
     # ----------------------------------------------------
 
-    # AFT ==> Activity function type == 'ActivityLocation' in <time>
+    # AFT ==> Activity function type
     dps_df['AFT'] = None
 
-    # SPUT ==> Spatial Unit Type == 'Type' in <time>
+    # SPUT ==> Spatial Unit Type
     dps_df['SPUT'] = None
 
-    # SF ==> Seasonal Factor M == 'Type_weight' in <time>
+    # SF ==> Seasonal Factor M
     dps_df['SF'] = None
 
     # Execute the classification row by row
     # --------------------------------------
-    dps_df = dps_df.apply(classify, axis=1, incol='TYYPg', activityType='AFT', spatialUnit='SPUT', seasonalFactor='SF')  
+    dps_df = dps_df.apply(classify, axis=1, incol=blf_col, activityType='AFT', spatialUnit='SPUT', seasonalFactor='SF')
 
     return dps_df
 
 def classify(row, incol, activityType, spatialUnit, seasonalFactor):
-    """ Reclassifies landuse features to following activity types (AT). See Table S2. """
+    """ Reclassifies (OSM + ENTD) building and landuse features to following activity types (AT). See chapter S2.1 and Table S2. """
 
     # RESIDENTIAL
     if row[incol] in ['Accommodation', 'Residential', 'ResiArea']:
@@ -242,7 +279,7 @@ def classify(row, incol, activityType, spatialUnit, seasonalFactor):
 
     # RETAIL & SERVICE
     elif row[incol] == 'Retail':
-      row[activityType] = 'Retail'
+      row[activityType] = 'Retail & Services'
       row[spatialUnit] = 'building'
       row[seasonalFactor] = 1.0
 
@@ -259,7 +296,7 @@ def classify(row, incol, activityType, spatialUnit, seasonalFactor):
 
     # TRANSPORT (i.e. Road in the data)
     elif row[incol] == 'Road':
-      row[activityType] = 'Road'
+      row[activityType] = 'Transport'
       row[spatialUnit] = 'area'
       row[seasonalFactor] = 1.0
 
@@ -271,14 +308,14 @@ def classify(row, incol, activityType, spatialUnit, seasonalFactor):
 
     return row
 
-def calculateRelativeFloorArea(df=None):
+def calculateRelativeFloorArea(df=None, aft_col=None, sz_id_col=None):
     """ 
     Calculate the relative floor area (RFA) for each subunit within a base station. 
     See chapter 3.2 in the article + chapter S2.2 and Table S2 in the supplementary materials.
     """
 
     # Floor ==> Calculate the number of floors in a building based on mean height
-    df = calculateFloors(df=df, height_col='MEAN', type_col='Type4E', target_col='Floor')
+    df = calculateFloors(df=df, height_col='MEAN', aft_col=aft_col, target_col='Floor')
     
     # FEA ==> Calculate the Feature Area (i.e. Area of UNION polygon)
     df['FEA'] = None
@@ -291,8 +328,8 @@ def calculateRelativeFloorArea(df=None):
     # --------
     df['SSFA'] = None
 
-    # Group data by 'Site_ID'
-    grouped = df.groupby('site_id')
+    # Group data by source zones
+    grouped = df.groupby(sz_id_col)
 
     # Iterate over groups and sum the values
     for key, values in grouped:
@@ -311,9 +348,9 @@ def calculateRelativeFloorArea(df=None):
 
     return df
 
-def calculateFloors(df, height_col, type_col, target_col):
+def calculateFloors(df, height_col, aft_col, target_col):
     """ 
-    Calculate the number of floors in a building based on <height_col> into <target_col> based on building type <type_col>.
+    Calculate the number of floors in a building based on <height_col> into <target_col> based on buildings' activity function type <type_col>.
     See chapter 3.1 in the article + chapter S2.1 and Table S2 in the supplementary materials.
     
     """
@@ -321,7 +358,7 @@ def calculateFloors(df, height_col, type_col, target_col):
     df[target_col] = None
 
     # Calculate the amount of Floors based on MEAN hight of the building
-    df = df.apply(returnFloors, axis=1, height_col=height_col, type_col=type_col, target_col=target_col)
+    df = df.apply(returnFloors, axis=1, height_col=height_col, aft_col=aft_col, target_col=target_col)
 
     # Set Floor value to 1 for values less than zeros
     df.ix[df[target_col]<1, target_col] = 1
@@ -329,11 +366,11 @@ def calculateFloors(df, height_col, type_col, target_col):
     # Return DataFrame
     return df
 
-def returnFloors(row, height_col, type_col, target_col):
+def returnFloors(row, height_col, aft_col, target_col):
     """ Return number of floors based on mean floor height of the building """
 
     # If building type is 'Residential' mean floor height is 3.5
-    if row[type_col] == 'Residential':
+    if row[aft_col] == 'Residential':
       row[target_col] = row[height_col] / 3.5
     # In other cases mean floor height is 4.5
     else:
@@ -356,7 +393,7 @@ def getArea(row, geom_col, target_col):
     row[target_col] = row[geom_col].area
     return row
 
-def calculateEHP(df, time_window):
+def calculateEHP(df, time_window, sz_id_col):
     """
     Calculate Estimated Human Presence (EHP).
     See chapter 3.3 in the article + chapter S2.3, Figure S2 and Table S3 in the supplementary materials.
@@ -371,14 +408,14 @@ def calculateEHP(df, time_window):
     # Create column for estimated human presence (EHP) that is a normalized aEHP (scale 0.0 - 1.0).
     df['EHP %s' % tw] = None
 
-    # Group data by 'Site_ID'
-    grouped = df.groupby('site_id')
+    # Group data by 'Base_station_id'
+    grouped = df.groupby(sz_id_col)
 
     # Iterate over groups and normalize the values
     for key, values in grouped:
 
       # Get the indices of the values
-      siteid_indices = values.index
+      sz_indices = values.index
 
       # Get the sum of 'aEHP' values within site
       sum_aEHP = values['aEHP %s' % tw].sum()
@@ -387,7 +424,7 @@ def calculateEHP(df, time_window):
       EHP = values['aEHP %s' % tw] / sum_aEHP
 
       # Assign values to 'RMP' columns
-      df.loc[siteid_indices, 'EHP %s' % tw] = EHP.values
+      df.loc[sz_indices, 'EHP %s' % tw] = EHP.values
 
     return df
     
@@ -422,7 +459,7 @@ def calculateROP(df, time_window):
     df['ROP %s' % twt] = df['EHP %s' % twt] * df[twm]
     return df
 
-def calculateZROP(df, time_window, grid_cell_id_col):
+def calculateZROP(df, time_window, tz_id_col):
     """ 
     Sum Relative Observed Population (ROP) for each target zone, i.e. calculate ZROP. 
     See chapter 3.5 in the article + chapter S2.5 and Table S5 in the supplementary materials.
@@ -432,7 +469,7 @@ def calculateZROP(df, time_window, grid_cell_id_col):
     rop = 'ROP ' + tw + 't'
     
     # Group data by 'Grid cell id'
-    grouped = df.groupby(grid_cell_id_col)
+    grouped = df.groupby(tz_id_col)
 
     # Create DataFrame for spatial units (e.g. a 100 m grid)
     ZROP_grid = pd.DataFrame()
@@ -447,22 +484,22 @@ def calculateZROP(df, time_window, grid_cell_id_col):
       ZROP_grid = ZROP_grid.append([[key, zrop]])
 
     # Set column names
-    ZROP_grid.columns = [grid_cell_id_col, 'ZROP %s' % tw]
+    ZROP_grid.columns = [tz_id_col, 'ZROP %s' % tw]
 
     # Change grid cell id to numeric if possible
     try:
-        ZROP_grid[grid_cell_id_col] = ZROP_grid[grid_cell_id_col].astype(int)
+        ZROP_grid[tz_id_col] = ZROP_grid[tz_id_col].astype(int)
     except ValueError:
         print("Warning: Could not convert the ZROP values to numeric.")
         pass
 
     return ZROP_grid
 
-def saveToShape(input_df, grid_df, output_path, grid_cell_id, epsg_code):
+def saveToShape(input_df, grid_df, output_path, tz_id_col, epsg_code):
     """ Save ZROP values in <input_df> as Shapefile defined in <grid_df> to <output_path> using projection in <epsg code> """
     
     # Join the data with grid GeoDataFrame
-    geo = grid_df[[grid_cell_id, 'geometry']].merge(input_df, left_on=grid_cell_id, right_on='GRD_INSPIR', how='inner')
+    geo = grid_df[[tz_id_col, 'geometry']].merge(input_df, left_on=tz_id_col, right_on=tz_id_col, how='inner')
     
     # Re-project
     geo['geometry'] = geo['geometry'].to_crs(epsg=epsg_code)
