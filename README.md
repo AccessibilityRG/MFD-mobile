@@ -10,7 +10,7 @@ This repository provides supporting information and a Python implementation of a
 
 #### Check the latest version!
 
-This repository is the released version (1.01) of the tool that comes as part of the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). 
+This repository is the released version (1.2) of the tool that comes as part of the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). 
 However, as things might change and softwares tend to develop further, 
 we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD-mobile).
 
