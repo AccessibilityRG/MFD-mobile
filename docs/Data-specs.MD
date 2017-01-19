@@ -1,6 +1,6 @@
 # Data
 
-MFD interpolation model requires basically three different datasets that all has some specific characteristics:
+MFD interpolation tool requires basically three different datasets that all has some specific characteristics:
 
  1. [Disaggregated physical surface layer](#disaggregated-physical-surface-layer)
  2. [Human activity data](#human-activity-data)
@@ -102,7 +102,7 @@ Time specific human activity data per function type that we use is in a followin
 
 ### Note
 
-In the Python implementation of the model, you should name the columns representing the probability for human presence at specific activity function type at specific time of the day as `H9t`.   
+In the Python implementation of the method, you should name the columns representing the probability for human presence at specific activity function type at specific time of the day as `H9t`.   
 
 Hence, the column name should start with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 't' -letter (*time-use*).  
 
@@ -122,7 +122,7 @@ The mobile phone data (Call Detail Records) that we use is in a following format
 
 ### Note
 
-In the Python implementation of the model, you should name the columns representing the amount of mobile phone users registered on a specific base station at specific time of the day as `H9m`.   
+In the Python implementation of the method, you should name the columns representing the amount of mobile phone users registered on a specific base station at specific time of the day as `H9m`.   
 
 Hence, the column name should start with capital 'H' -letter (*hour*), numbers informs the hour of the day, and the column name should end with lower 'm' -letter (*mobile-phone-user*).  
 

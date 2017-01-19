@@ -1,8 +1,8 @@
-# Multi-temporal function-based dasymetric interpolation model for mobile phone data
+# Multi-temporal function-based dasymetric interpolation tool for mobile phone data
 
 ## Scientific article
 
-This repository provides supporting information and a Python implementation of a multi-temporal function-based dasymetric interpolation model that is presented in the following article:
+This repository provides supporting information and a Python implementation of a multi-temporal function-based dasymetric interpolation method that is presented in the following article:
 
  - Järv Olle, Tenkanen Henrikki & Toivonen Tuuli (2017). *Enhancing spatial accuracy of mobile
   phone data using multi-temporal dasymetric interpolation.* Published in **International Journal of 
@@ -10,11 +10,15 @@ This repository provides supporting information and a Python implementation of a
 
 #### Check the latest version!
 
-This repository is the released version (1.0) that original one belonging to the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). However, as things might change and softwares tend to develop further, we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD-mobile).
+This repository is the released version (1.01) of the tool that comes as part of the article mentioned [above](README.md#this-repository-provides-supporting-information-to-the-following-article). 
+However, as things might change and softwares tend to develop further, 
+we highly recommend checking the [latest version from here](https://github.com/AccessibilityRG/MFD-mobile).
 
 ## Purpose
   
-This repository and script(s) demonstrate in practice how multi-temporal function-based dasymetric interpolation model can be used to interpolate population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
+This repository and script(s) demonstrate in practice how multi-temporal function-based dasymetric interpolation method can be used to interpolate 
+population distributed in spatially varying coverage areas of mobile phone base stations into a desired layout of predefined statistical units using 
+ancillary data sources. 
 
 ## Requirements
 
@@ -45,7 +49,7 @@ See more information about the datasets from [here](docs/Data-specs.MD).
 
 ## Source Codes
 
-The implemented version of the model for Python is written into a single Python script file [mfd_interpolation.py](src/mfd_interpolation.py).
+The implemented version of the method for Python is written into a single Python script file [mfd_interpolation.py](src/mfd_interpolation.py).
 
 Before running the tool, you should update the parameters in the `main()` -function of the tool. See more details from [here](src/).
 
@@ -68,10 +72,11 @@ You can contact Olle Järv or Henrikki Tenkanen if you have any questions relate
  
 ## How to cite?
 
-If you use this work, please find our publication **"Multi-temporal function-based dasymetric model for mobile phone data"** from [Zenodo](https://zenodo.org/) to find out the citing practices from there.
+If you use this tool, please find our publication **"Multi-temporal function-based dasymetric interpolation tool for mobile phone data"** 
+from [Zenodo](https://zenodo.org/) to find out the citing practices.
 
 ## License
 
-mfd_interpolation.py and its related documents under this repository by Digital Geography Group / Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. 
+mfd_interpolation.py and its related documents under this repository by Digital Geography Lab / Accessibility Research Group (University of Helsinki) is licensed under a Creative Commons Attribution 4.0 International License. 
 More information about license: http://creativecommons.org/licenses/by-sa/4.0/
 

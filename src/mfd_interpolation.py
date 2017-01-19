@@ -2,7 +2,7 @@
 mfd_interpolation.py
 
 
-Copyright (C) 2017.  Digital Geography Group / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
+Copyright (C) 2017.  Digital Geography Lab / Accessibility Research Group, University of Helsinki (Järv, Tenkanen & Toivonen).
 Programmed by: Henrikki Tenkanen, University of Helsinki, Finland.
 
 
@@ -16,8 +16,8 @@ This script is part of the following article:
   PURPOSE:
   --------
 
-  This script demonstrates how multi-temporal dasymetric interpolation model can be used to interpolate population distributed in spatially varying
-  coverage areas of mobile phone base stations into a desired layout of predefined statistical units using ancillary data sources. 
+  This script demonstrates how multi-temporal dasymetric interpolation method can be used to interpolate mobile phone data distributed in spatially varying
+  coverage areas of mobile phone base stations into a desired layout of predefined spatial units using ancillary data sources.
 
   REQUIREMENTS:
   -------------
@@ -36,7 +36,7 @@ This script is part of the following article:
   CONTACT:
   --------
   
-  You can contact Olle Järv or Henrikki Tenkanen if you have any questions related to the model or the Python implementation of the model:
+  You can contact Olle Järv or Henrikki Tenkanen if you have any questions related to the model or the Python implementation of the method:
       
      - olle.jarv (a) helsinki.fi
      - henrikki.tenkanen (a) helsinki.fi
@@ -46,7 +46,7 @@ This script is part of the following article:
   LICENCE:
   --------
 
-  mfd_interpolation.py by Accessibility Research Group (University of Helsinki) is licensed under
+  mfd_interpolation.py by Digital Geography Lab / Accessibility Research Group (University of Helsinki) is licensed under
   a Creative Commons Attribution 4.0 International License.
   More information about license: http://creativecommons.org/licenses/by-sa/4.0/
 
@@ -59,7 +59,7 @@ import os
 
 def main():    
     
-    """ Main method that controls the Multi-temporal function-based dasymetric interpolation model (MFD interpolation). """
+    """ Main method that controls the Multi-temporal function-based dasymetric interpolation method (MFD interpolation). """
     
     # File paths
     # ...........
@@ -149,7 +149,7 @@ def main():
 
     # ----------------------------------------------------------
     
-    print("Running Multi-temporal dasymetric interpolation ...")
+    print("Running MFD interpolation tool ...")
     
     # Iterate over the desired hours of the day
     for xhour in range(start_h, end_h+1):
